@@ -5,6 +5,8 @@ using UnityEngine;
 public class Ship : MonoBehaviour
 {
     [SerializeField] float speed = 10f;
+    [SerializeField] float xRange = 5f;
+    [SerializeField] float yRange = 5f;
 
     void Update()
     {
@@ -13,10 +15,12 @@ public class Ship : MonoBehaviour
 
         float xOffset = hor * Time.deltaTime * speed;
         float newXpos = transform.localPosition.x + xOffset;
+        float clampedXpos = Mathf.Clamp(newXpos, -xRange, xRange);
 
         float yOffset = ver * Time.deltaTime * speed;
         float newYpos = transform.localPosition.y + yOffset;
+        float clampedYpos = Mathf.Clamp(newYpos, -yRange, yRange);
         
-        transform.localPosition = new Vector3(newXpos, newYpos, transform.localPosition.z);
+        transform.localPosition = new Vector3(clampedXpos, clampedYpos, transform.localPosition.z);
     }
 }
